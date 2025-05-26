@@ -1,4 +1,4 @@
-name: Unity Android CI
+name: Unity Android Build
 
 on:
   push:
@@ -10,26 +10,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            ~/.cache/unity
-          key: ${{ runner.os }}-unity-${{ hashFiles('**/Packages/manifest.json') }}
-          restore-keys: |
-            ${{ runner.os }}-unity
-
-      - name: Unity Build
+      - name: Unity Builder
         uses: game-ci/unity-builder@v2
         with:
           unityVersion: 2022.3.0f1
           targetPlatform: Android
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ARApp
-          path: build/Android
