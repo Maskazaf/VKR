@@ -1,0 +1,27 @@
+name: Build & Test Unity Project
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Unity
+        uses: game-ci/unity-actions/setup@v2
+        with:
+          unityVersion: 2022.3.0f1 # замените на свою версию Unity
+
+      - name: Build project for Android
+        uses: game-ci/unity-actions/build@v2
+        with:
+          targetPlatform: Android
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: ARApp
+          path: build/Android/
