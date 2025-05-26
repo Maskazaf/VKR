@@ -6,22 +6,31 @@ on:
 
 jobs:
   build:
+    name: Build for Android
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache Unity packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ~/.cache/unity
+          key: ${{ runner.os }}-unity-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            ${{ runner.os }}-unity-
 
       - name: Set up Unity
-        uses: game-ci/unity-actions/setup@v2
+        uses: game-ci/unity-builder@v2
         with:
-          unityVersion: 2022.3.0f1 # замените на свою версию Unity
-
-      - name: Build project for Android
-        uses: game-ci/unity-actions/build@v2
-        with:
+          unityVersion: 2022.3.0f1  # замени на свою версию
           targetPlatform: Android
 
-      - name: Upload APK
+      - name: Upload artifact (APK)
         uses: actions/upload-artifact@v3
         with:
           name: ARApp
-          path: build/Android/
+          path: build/Android
