@@ -1,20 +1,19 @@
-name: Build Unity Android Project
+name: Unity Android CI
 
 on:
   push:
-    branches: [master]  # или main, если у тебя другая ветка
+    branches: [master]
 
 jobs:
   build:
-    name: Build for Android
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v2
         with:
           path: |
             ~/.npm
@@ -23,14 +22,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-unity
 
-      - name: Build project
+      - name: Unity Build
         uses: game-ci/unity-builder@v2
         with:
-          unityVersion: 2022.3.0f1  # замени на свою версию
+          unityVersion: 2022.3.0f1
           targetPlatform: Android
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: ARApp
           path: build/Android
