@@ -2,8 +2,6 @@
     "name": "Main",
     "rootNamespace": "",
     "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
         "Unity.TextMeshPro",
         "Unity.XR.ARFoundation",
         "Unity.XR.ARSubsystems",
