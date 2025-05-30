@@ -22,6 +22,6 @@ public class NavigationTests
     [TearDown]
     public void TearDown()
     {
-        GameObject.DestroyImmediate(testObject); // <-- ВАЖНО: Использовать DestroyImmediate в EditMode
+        GameObject.DestroyImmediate(testObject);
     }
 }
